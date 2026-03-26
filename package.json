@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\" \"node backend/ml_engine.js\"",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "start": "cd server && npm run start"

@@ -240,7 +240,7 @@ const UserDashboard = ({ users, selectedUserId, setSelectedUserId, history, setH
           Confidence: {typeof result?.confidence === 'number' ? `${Math.round(result.confidence * 100)}%` : 'N/A'}
         </p>
 
-        {result?.modelUsed && <p className="mt-2 text-sm text-slate-400">Model: {result.modelUsed}</p>}
+        {result?.modelUsed && <p className="mt-2 text-sm text-slate-400">Loaded with ML Model</p>}
         {result?.reason && <p className="mt-1 text-sm text-slate-400">Reason: {result.reason}</p>}
 
         {analyzing && <p className="mt-3 text-sm text-blue-300">Analyzing audio...</p>}
