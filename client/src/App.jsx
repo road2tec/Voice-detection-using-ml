@@ -24,7 +24,7 @@ function App() {
   const [userHistory, setUserHistory] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [flashAlert, setFlashAlert] = useState(false);
-  const [activeTab, setActiveTab] = useState('user');
+  const [activeTab, setActiveTab] = useState(getStoredAuthUser()?.role === 'admin' ? 'admin' : 'user');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [location, setLocation] = useState(null);
@@ -167,19 +167,12 @@ function App() {
           <p className="mt-2 max-w-3xl text-sm text-slate-300">{subtitle}</p>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            {authUser.role === 'admin' && (
-              <button
-                onClick={() => setActiveTab('admin')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                  activeTab === 'admin' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                }`}
-              >
-                Admin View
-              </button>
-            )}
+            <span className="text-sm font-medium text-blue-400 capitalize tracking-wide bg-blue-500/10 px-3 py-1 rounded-md border border-blue-500/20">
+              {authUser.role} Dashboard
+            </span>
 
             <span className="ml-auto text-sm text-slate-300">
-              Signed in as {authUser.email} ({authUser.role})
+              Signed in as {authUser.email}
             </span>
             <button
               onClick={handleLogout}

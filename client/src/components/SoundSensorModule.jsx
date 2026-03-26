@@ -5,6 +5,7 @@ const SoundSensorModule = () => {
   const [volume, setVolume] = useState(0);
   const [status, setStatus] = useState('SYSTEM READY');
   const [isNoisy, setIsNoisy] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const audioContextRef = useRef(null);
   const analyzerRef = useRef(null);
@@ -12,6 +13,7 @@ const SoundSensorModule = () => {
   const streamRef = useRef(null);
 
   const startSensor = async () => {
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
@@ -104,7 +106,7 @@ const SoundSensorModule = () => {
         </div>
 
         <button 
-          onClick={startSensor}
+          onClick={() => !isActive && setShowConfirm(true)}
           disabled={isActive}
           className={`font-bold py-3 px-6 rounded-md transition-colors duration-300 w-full ${isActive ? 'bg-[#2ecc71] cursor-default' : 'bg-[#e74c3c] hover:bg-[#c0392b]'}`}
         >
@@ -112,6 +114,29 @@ const SoundSensorModule = () => {
         </button>
         <p className="text-[0.7rem] text-[#666] mt-[15px]">Click to use microphone for real-time sensing</p>
       </div>
+
+      {/* Custom Confirmation Modal */}
+      {showConfirm && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 rounded-2xl backdrop-blur-sm">
+          <div className="bg-[#2a2a2a] border border-[#444] p-6 rounded-xl shadow-2xl scale-110 animate-in fade-in zoom-in duration-200">
+            <h3 className="text-lg font-semibold mb-4 text-white">IOT part is connected?</h3>
+            <div className="flex gap-4 justify-center">
+              <button 
+                onClick={() => { setShowConfirm(false); startSensor(); }}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2 rounded-lg font-bold transition-all shadow-lg"
+              >
+                Yes
+              </button>
+              <button 
+                onClick={() => setShowConfirm(false)}
+                className="bg-rose-600 hover:bg-rose-500 text-white px-6 py-2 rounded-lg font-bold transition-all shadow-lg"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
