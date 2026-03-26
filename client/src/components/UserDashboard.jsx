@@ -223,7 +223,7 @@ const UserDashboard = ({ users, selectedUserId, setSelectedUserId, history, setH
       <div className="mt-4 flex items-center gap-3 text-sm text-slate-300">
         <span className={`h-3 w-3 rounded-full ${analyzing ? 'animate-pulse bg-blue-500' : 'bg-slate-500'}`} />
         {analyzing
-          ? 'Audio uploaded. Sending to Gemini for detection...'
+          ? 'Audio uploaded. Sending to ML for detection...'
           : selectedFile
             ? `Selected file: ${selectedFile.name}`
             : 'Upload audio file or record audio (.wav/.webm/.mp3/.m4a)'}
