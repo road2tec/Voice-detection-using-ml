@@ -1,0 +1,18 @@
+{
+  "name": "p26--noiceguard-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "start": "cd server && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "NoiseGuard AI monorepo",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
