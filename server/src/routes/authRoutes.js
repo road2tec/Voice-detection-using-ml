@@ -4,8 +4,8 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-const ADMIN_EMAIL = 'admin@gmail.com';
-const ADMIN_PASSWORD = 'admin@gmail.com';
+const ADMIN_EMAIL = 'moresayali180@gmail.com';
+const ADMIN_PASSWORD = 'NoiseGuard@AI123';
 
 const sanitizeUser = (user) => ({
   id: user._id,

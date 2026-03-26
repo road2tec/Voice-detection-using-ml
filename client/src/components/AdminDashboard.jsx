@@ -1,4 +1,5 @@
 import AlertCard from './AlertCard';
+import SoundSensorModule from './SoundSensorModule';
 
 const AdminDashboard = ({ users, alerts, flashAlert }) => {
   return (
@@ -15,6 +16,10 @@ const AdminDashboard = ({ users, alerts, flashAlert }) => {
             {flashAlert ? 'Alert Active' : 'Monitoring'}
           </span>
         </div>
+      </div>
+
+      <div className="mt-6 mb-8">
+        <SoundSensorModule />
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[320px_1fr]">

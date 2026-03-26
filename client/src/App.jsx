@@ -151,14 +151,6 @@ function App() {
           <p className="mt-2 max-w-3xl text-sm text-slate-300">{subtitle}</p>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => setActiveTab('user')}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                activeTab === 'user' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-              }`}
-            >
-              User View
-            </button>
             {authUser.role === 'admin' && (
               <button
                 onClick={() => setActiveTab('admin')}
