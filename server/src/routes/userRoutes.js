@@ -6,7 +6,13 @@ const router = express.Router();
 
 router.get('/', async (_req, res) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 }).lean();
+    const users = await User.find({
+      $and: [
+        { email: { $not: /example\.com$/i } },
+        { email: { $not: /test/i } },
+        { name: { $not: /test/i } }
+      ]
+    }).sort({ createdAt: -1 }).lean();
     return res.json(users);
   } catch (error) {
     console.error('Failed to fetch users:', error);
