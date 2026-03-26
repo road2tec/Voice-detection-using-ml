@@ -20,7 +20,9 @@ const buildTransporter = () => {
 const sendDetectionEmail = async ({ user, label, danger, timestamp, confidence, reason }) => {
   const transporter = buildTransporter();
   const smtpUser = process.env.SMTP_USER;
-  const to = process.env.ALERT_EMAIL_TO || smtpUser;
+  const adminEmail = process.env.ALERT_EMAIL_TO || smtpUser;
+  const recipients = [adminEmail, user.email].filter(Boolean);
+  const to = recipients.join(', ');
 
   if (!transporter || !smtpUser || !to) {
     return { skipped: true, message: 'SMTP is not configured.' };
