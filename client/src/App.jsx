@@ -27,6 +27,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('user');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [location, setLocation] = useState(null);
   const flashTimeoutRef = useRef(null);
 
   const onNewAlert = useCallback((alert) => {
@@ -126,6 +127,20 @@ function App() {
     setActiveTab(user.role === 'admin' ? 'admin' : 'user');
     setSelectedUserId(user.role === 'admin' ? '' : user.id);
     setError('');
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (err) => {
+          console.error('Geolocation error:', err);
+        },
+      );
+    }
   };
 
   const handleLogout = () => {
@@ -137,6 +152,7 @@ function App() {
     setUserHistory([]);
     setSelectedUserId('');
     setActiveTab('user');
+    setLocation(null);
   };
 
   if (!authUser) {
@@ -194,6 +210,7 @@ function App() {
                 history={userHistory}
                 setHistory={setUserHistory}
                 lockUserSelection={authUser.role !== 'admin'}
+                location={location}
               />
             ) : (
               <AdminDashboard users={users} alerts={alerts} flashAlert={flashAlert} />

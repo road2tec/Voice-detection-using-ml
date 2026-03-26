@@ -3,7 +3,7 @@ import { analyzeAudio } from '../services/api';
 import LedIndicator from './LedIndicator';
 import { playBuzzer } from '../utils/audio';
 
-const UserDashboard = ({ users, selectedUserId, setSelectedUserId, history, setHistory, lockUserSelection = false }) => {
+const UserDashboard = ({ users, selectedUserId, setSelectedUserId, history, setHistory, lockUserSelection = false, location }) => {
   const [analyzing, setAnalyzing] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [result, setResult] = useState(null);
@@ -130,7 +130,12 @@ const UserDashboard = ({ users, selectedUserId, setSelectedUserId, history, setH
       setResult(null);
       setAnalyzing(true);
 
-      const analysis = await analyzeAudio({ userId: selectedUserId, audioBlob: selectedFile });
+      const analysis = await analyzeAudio({ 
+        userId: selectedUserId, 
+        audioBlob: selectedFile,
+        latitude: location?.latitude,
+        longitude: location?.longitude
+      });
       setResult(analysis);
 
       if (analysis.danger) {

@@ -22,6 +22,14 @@ const alertSchema = new mongoose.Schema(
       max: 1,
       default: null,
     },
+    latitude: {
+      type: Number,
+      default: null,
+    },
+    longitude: {
+      type: Number,
+      default: null,
+    },
   },
   {
     timestamps: true,

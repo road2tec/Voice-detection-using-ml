@@ -37,11 +37,13 @@ export const getUserAlerts = async (userId) => {
   return data;
 };
 
-export const analyzeAudio = async ({ userId, audioBlob }) => {
+export const analyzeAudio = async ({ userId, audioBlob, latitude, longitude }) => {
   const formData = new FormData();
   const extension = audioBlob.type.includes('wav') ? 'wav' : 'webm';
   formData.append('audio', audioBlob, `recording.${extension}`);
   formData.append('userId', userId);
+  if (latitude) formData.append('latitude', latitude);
+  if (longitude) formData.append('longitude', longitude);
 
   const { data } = await api.post('/api/audio/analyze', formData, {
     headers: {

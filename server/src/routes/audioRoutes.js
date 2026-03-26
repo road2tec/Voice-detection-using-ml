@@ -21,7 +21,7 @@ router.post('/analyze', upload.single('audio'), async (req, res) => {
       return res.status(400).json({ message: 'Audio file is required.' });
     }
 
-    const { userId } = req.body;
+    const { userId, latitude, longitude } = req.body;
 
     if (!userId) {
       return res.status(400).json({ message: 'userId is required.' });
@@ -43,6 +43,8 @@ router.post('/analyze', upload.single('audio'), async (req, res) => {
       label: aiResult.label,
       danger: aiResult.danger,
       confidence: aiResult.confidence,
+      latitude: latitude ? parseFloat(latitude) : null,
+      longitude: longitude ? parseFloat(longitude) : null,
     });
 
     const payload = {
@@ -52,6 +54,8 @@ router.post('/analyze', upload.single('audio'), async (req, res) => {
       label: alert.label,
       danger: alert.danger,
       confidence: alert.confidence,
+      latitude: alert.latitude,
+      longitude: alert.longitude,
       timestamp: alert.createdAt,
     };
 
@@ -66,6 +70,7 @@ router.post('/analyze', upload.single('audio'), async (req, res) => {
         confidence: alert.confidence,
         reason: aiResult.reason || null,
         timestamp: alert.createdAt,
+        location: alert.latitude && alert.longitude ? { lat: alert.latitude, lng: alert.longitude } : null,
       });
     } catch (mailError) {
       console.error('Failed to send detection email:', mailError.message);
